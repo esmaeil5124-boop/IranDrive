@@ -1,10 +1,8 @@
-
 name: Build Iran Drive APK
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
@@ -24,12 +22,9 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Install Android packages
+      - name: Install SDK
         run: |
           sdkmanager "platform-tools" "platforms;android-35" "build-tools;35.0.0"
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
 
       - name: Build APK
         run: gradle assembleDebug
@@ -38,4 +33,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: IranDrive-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/*.apk
